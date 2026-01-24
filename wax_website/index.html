@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vlisco Shop</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles globaux pour header et footer */
+        :root {
+            --color-gold: #D4AF37;
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-beige: #F5F1E8;
+        }
+        
+        /* HEADER STYLES */
+        .main-header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--color-black);
+        }
+        
+        .logo-highlight {
+            color: var(--color-gold);
+        }
+        
+        .nav-desktop ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-desktop a:hover {
+            color: var(--color-gold);
+        }
+        
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--color-black);
+            cursor: pointer;
+            position: relative;
+            padding: 0.5rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--color-gold);
+            color: var(--color-black);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--color-black);
+            transition: 0.3s;
+        }
+        
+        /* Mobile Navigation */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 999;
+            padding: 2rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .nav-mobile.active {
+            transform: translateX(0);
+        }
+        
+        .nav-mobile ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .nav-mobile li {
+            margin-bottom: 1rem;
+        }
+        
+        .nav-mobile a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--color-black);
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .nav-mobile a:hover {
+            background: var(--color-beige);
+        }
+        
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+        
+        .mobile-overlay.active {
+            display: block;
+        }
+        
+        /* FOOTER STYLES */
+        .main-footer {
+            background: var(--color-black);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col h4 {
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-col li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--color-gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--color-gold);
+            color: var(--color-black);
+            transform: translateY(-3px);
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .header-actions .action-btn:not(.menu-toggle) {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .nav-mobile,
+            .mobile-overlay {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header intégré directement -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <span class="logo-text">Vlisco<span class="logo-highlight">Shop</span></span>
+                </a>
+
+                <!-- Navigation Desktop -->
+                <nav class="nav-desktop">
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                        <li><a href="tendance.html">Tendances</a></li>
+                        <li><a href="histoire.html">Histoire</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <button class="action-btn search-btn" aria-label="Rechercher">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="action-btn cart-btn" aria-label="Panier">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="action-btn menu-toggle" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Mobile -->
+        <nav class="nav-mobile">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="collection.html"><i class="fas fa-th-large"></i> Collection</a></li>
+                <li><a href="nouveautes.html"><i class="fas fa-star"></i> Nouveautés</a></li>
+                <li><a href="tendance.html"><i class="fas fa-chart-line"></i> Tendances</a></li>
+                <li><a href="histoire.html"><i class="fas fa-book"></i> Histoire</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overlay pour mobile -->
+        <div class="mobile-overlay"></div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>L'Art du Wax Hollandais</h1>
+                <p class="subtitle">Découvrez l'authenticité des plus beaux tissus Vlisco et wax hollandais</p>
+                <div class="hero-buttons">
+                    <a href="collection.html" class="btn btn-primary">Voir la collection</a>
+                    <a href="nouveautes.html" class="btn btn-secondary">
+                        <i class="fas fa-star"></i> Nouveautés
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/image/wax_image_6.jpg" alt="Tissus wax colorés">
+            </div>
+        </section>
+
+        <!-- Section Marques -->
+        <section class="brands-section">
+            <h2>Nos Marques d'Exception</h2>
+            <div class="brands-grid">
+                <div class="brand-card">
+                    <div class="brand-logo">
+                        <img src="assets/image/vlisco_logo.jpg" alt="Vlisco">
+                    </div>
+                    <h3>Vlisco</h3>
+                    <p>Depuis 1846, le wax authentique</p>
+                    <a href="collection.html?brand=vlisco" class="brand-link">Voir les motifs <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="brand-card">
+                    <div class="brand-logo">
+                        <img src="assets/image/wax_image_3.jpg" alt="Wax Hollandais">
+                    </div>
+                    <h3>Hollandais</h3>
+                    <p>L'excellence néerlandaise</p>
+                    <a href="collection.html?brand=hollandais" class="brand-link">Voir les motifs <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="brand-card">
+                    <div class="brand-logo">
+                        <img src="assets/image/wax_image_5.jpg" alt="Woodin">
+                    </div>
+                    <h3>Woodin</h3>
+                    <p>Créativité et tradition</p>
+                    <a href="collection.html?brand=woodin" class="brand-link">Voir les motifs <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Collection -->
+        <section class="collection-preview">
+            <div class="section-header">
+                <h2>Nos Motifs Émblématiques</h2>
+                <a href="collection.html" class="view-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="motifs-grid" id="featured-motifs">
+                <!-- Les 4 motifs vedettes seront chargés via JS -->
+                <div class="loading-motifs">Chargement des motifs...</div>
+            </div>
+        </section>
+
+        <!-- Section Histoire -->
+        <section class="story-teaser">
+            <div class="story-content">
+                <h2>Une Histoire Tissée Depuis 1846</h2>
+                <p>Découvrez comment le wax hollandais, né d'une technique d'impression indonésienne, a conquis l'Afrique et le monde pour devenir un symbole d'élégance et de tradition.</p>
+                <a href="histoire.html" class="btn btn-outline">Lire notre histoire</a>
+            </div>
+            <div class="story-image">
+                <!-- Image temporaire - remplace avec ton image -->
+                <div class="story-placeholder">
+                    <i class="fas fa-history"></i>
+                    <span>Histoire du Wax</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer intégré directement -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Vlisco Shop</h3>
+                    <p>Spécialiste des tissus wax hollandais et Vlisco authentiques.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="histoire.html">Histoire</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Collections</h4>
+                    <ul>
+                        <li><a href="collection.html?brand=vlisco">Vlisco</a></li>
+                        <li><a href="collection.html?brand=hollandais">Wax Hollandais</a></li>
+                        <li><a href="collection.html?brand=woodin">Woodin</a></li>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> contact@waxcollection.com</li>
+                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Paris, France</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; Vlisco Shop. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMobile = document.querySelector('.nav-mobile');
+            const overlay = document.querySelector('.mobile-overlay');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMobile.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    document.body.style.overflow = navMobile.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                overlay.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    navMobile.classList.remove('active');
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                // Fermer le menu en cliquant sur un lien
+                document.querySelectorAll('.nav-mobile a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menuToggle.classList.remove('active');
+                        navMobile.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+            
+            // Charger les motifs
+            loadFeaturedMotifs();
+        });
+
+        // Fonction pour charger les motifs vedettes
+        async function loadFeaturedMotifs() {
+            try {
+                // Essayer de charger depuis le fichier JSON
+                const response = await fetch('data/motifs.json');
+                if (!response.ok) {
+                    throw new Error('Fichier motifs.json non trouvé');
+                }
+                const motifs = await response.json();
+                
+                // Prendre les 4 premiers motifs
+                const featuredMotifs = motifs.slice(0, 4);
+                
+                // Afficher les motifs
+                displayMotifs(featuredMotifs);
+                
+            } catch (error) {
+                console.log('Utilisation des motifs par défaut:', error);
+                
+                // Données par défaut si le JSON n'existe pas
+                const defaultMotifs = [
+                    {
+                        id: 1,
+                        name: "Motif Adinkra",
+                        brand: "Vlisco",
+                        image: "assets/image/wax_image_6.jpg",
+                        colors: ["#000000", "#D4AF37", "#C41E3A"]
+                    },
+                    {
+                        id: 2,
+                        name: "Fibonacci Gold",
+                        brand: "Vlisco", 
+                        image: "assets/image/wax_image_3.jpg",
+                        colors: ["#D4AF37", "#1A1A1A", "#FFFFFF"]
+                    },
+                    {
+                        id: 3,
+                        name: "Fleurs du Sahel",
+                        brand: "Hollandais",
+                        image: "assets/image/wax_image_5.jpg",
+                        colors: ["#10B981", "#F59E0B", "#FFFFFF"]
+                    },
+                    {
+                        id: 4,
+                        name: "Géométrie Dorée",
+                        brand: "Woodin",
+                        image: "assets/image/vlisco_logo.jpg",
+                        colors: ["#D4AF37", "#000000", "#7C3AED"]
+                    }
+                ];
+                
+                displayMotifs(defaultMotifs);
+            }
+        }
+
+        // Fonction pour afficher les motifs
+        function displayMotifs(motifs) {
+            const container = document.getElementById('featured-motifs');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            motifs.forEach(motif => {
+                const motifCard = `
+                    <a href="motif.html?id=${motif.id}" class="motif-card">
+                        <div class="motif-image">
+                            <img src="${motif.image}" alt="${motif.name}" onerror="this.src='assets/image/wax_image_6.jpg'">
+                        </div>
+                        <div class="motif-info">
+                            <div class="motif-name">${motif.name}</div>
+                            <div class="motif-brand">${motif.brand}</div>
+                            <div class="motif-colors">
+                                ${motif.colors ? motif.colors.slice(0, 3).map(color => 
+                                    `<div class="color-dot" style="background-color: ${color};" title="${color}"></div>`
+                                ).join('') : ''}
+                            </div>
+                        </div>
+                    </a>
+                `;
+                
+                container.innerHTML += motifCard;
+            });
+        }
+
+        // Animation du menu hamburger
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    const spans = this.querySelectorAll('span');
+                    spans.forEach((span, index) => {
+                        if (this.classList.contains('active')) {
+                            // Animation pour fermer
+                            if (index === 0) span.style.transform = 'rotate(0) translateY(0)';
+                            if (index === 1) span.style.opacity = '1';
+                            if (index === 2) span.style.transform = 'rotate(0) translateY(0)';
+                        } else {
+                            // Animation pour ouvrir
+                            if (index === 0) span.style.transform = 'rotate(45deg) translateY(7px)';
+                            if (index === 1) span.style.opacity = '0';
+                            if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-7px)';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+    <style>
+        /* Styles supplémentaires pour le contenu */
+        
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-black);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--color-black);
+            color: var(--color-black);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Brands Section */
+        .brands-section {
+            padding: 4rem 2rem;
+            background: var(--color-beige);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .brands-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-black);
+        }
+        
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .brand-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .brand-logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .brand-logo img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        
+        .brand-card h3 {
+            margin: 0.5rem 0;
+            color: var(--color-black);
+        }
+        
+        .brand-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .brand-link {
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Collection Preview */
+        .collection-preview {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .view-all {
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .view-all:hover {
+            gap: 1rem;
+        }
+        
+        .motifs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .motif-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .motif-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .motif-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .motif-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .motif-card:hover .motif-image img {
+            transform: scale(1.05);
+        }
+        
+        .motif-info {
+            padding: 1.5rem;
+        }
+        
+        .motif-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-black);
+        }
+        
+        .motif-brand {
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .motif-colors {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #eee;
+        }
+        
+        /* Story Teaser */
+        .story-teaser {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(to right, var(--color-white) 50%, var(--color-beige) 50%);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .story-content h2 {
+            margin-bottom: 1.5rem;
+            color: var(--color-black);
+        }
+        
+        .story-content p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        .story-image {
+            height: 300px;
+        }
+        
+        .story-placeholder {
+            height: 100%;
+            background: linear-gradient(45deg, var(--color-gold), var(--color-black));
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .story-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .loading-motifs {
+            text-align: center;
+            padding: 2rem;
+            grid-column: 1 / -1;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .story-teaser {
+                grid-template-columns: 1fr;
+                background: var(--color-beige);
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .motifs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .motifs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>

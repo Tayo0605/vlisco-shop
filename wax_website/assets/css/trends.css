@@ -1,0 +1,241 @@
+/* ===== TRENDS HERO ===== */
+.trends-hero {
+    background: linear-gradient(135deg, var(--color-black) 0%, #333 100%);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.trends-hero-content h1 {
+    color: white;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.trends-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.trends-badge {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: var(--color-gold);
+    color: var(--color-black);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== TOP TRENDS ===== */
+.top-trends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.trend-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.trend-card:hover {
+    transform: translateY(-10px);
+}
+
+.trend-card.trend-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.trend-rank {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.trend-image {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.trend-card.trend-featured .trend-image {
+    height: 100%;
+}
+
+.trend-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trend-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.trend-tag {
+    background: var(--color-red);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.trend-info {
+    padding: 1.5rem;
+}
+
+.trend-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.trend-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+}
+
+.btn-trend {
+    background: linear-gradient(45deg, var(--color-gold), #FFD700);
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+/* ===== CATEGORY TABS ===== */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.category-tab {
+    padding: 1rem 2rem;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.category-tab:hover,
+.category-tab.active {
+    background: var(--color-black);
+    color: white;
+    border-color: var(--color-black);
+}
+
+/* ===== TREND GUIDE ===== */
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.guide-card {
+    background: var(--color-beige);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.guide-icon {
+    font-size: 2.5rem;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+}
+
+.guide-card h3 {
+    margin-bottom: 1rem;
+}
+
+.guide-card ul {
+    list-style: none;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.guide-card li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.guide-card li:before {
+    content: "•";
+    color: var(--color-gold);
+    position: absolute;
+    left: 0;
+}
+
+/* ===== NEWSLETTER ===== */
+.trends-newsletter {
+    background: linear-gradient(135deg, var(--color-beige) 0%, #FFF 100%);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 2rem auto;
+    gap: 0.5rem;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.newsletter-note {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}

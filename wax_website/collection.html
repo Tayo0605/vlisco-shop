@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection - Wax Hollandais & Vlisco | Wax Collection</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/header-footer.css">
+    <link rel="stylesheet" href="assets/css/filters.css">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <span class="logo-text">Vlisco<span class="logo-highlight">Shop</span></span>
+                </a>
+
+                <!-- Navigation Desktop -->
+                <nav class="nav-desktop">
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                        <li><a href="tendance.html">Tendances</a></li>
+                        <li><a href="histoire.html">Histoire</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <button class="action-btn search-btn" aria-label="Rechercher">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="action-btn cart-btn" aria-label="Panier">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="action-btn menu-toggle" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Mobile -->
+        <nav class="nav-mobile">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="collection.html"><i class="fas fa-th-large"></i> Collection</a></li>
+                <li><a href="nouveautes.html"><i class="fas fa-star"></i> Nouveautés</a></li>
+                <li><a href="tendance.html"><i class="fas fa-chart-line"></i> Tendances</a></li>
+                <li><a href="histoire.html"><i class="fas fa-book"></i> Histoire</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overlay pour mobile -->
+        <div class="mobile-overlay"></div>
+    </header>
+
+    <main class="collection-page">
+        <!-- Hero Section Collection -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Notre Collection Exclusive</h1>
+                <p>Découvrez notre sélection de wax hollandais, Vlisco et tissus premium</p>
+            </div>
+        </section>
+
+        <!-- Filtres de Collection -->
+        <section class="collection-filters">
+            <div class="container">
+                <div class="filters-container">
+                    <!-- Filtres par Marque -->
+                    <div class="filter-group">
+                        <h3>Marques</h3>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Toutes</button>
+                            <button class="filter-btn" data-filter="vlisco">Vlisco</button>
+                            <button class="filter-btn" data-filter="hollandais">Hollandais</button>
+                            <button class="filter-btn" data-filter="woodin">Woodin</button>
+                        </div>
+                    </div>
+
+                    <!-- Filtres par Couleur -->
+                    <div class="filter-group">
+                        <h3>Couleurs</h3>
+                        <div class="color-filters">
+                            <button class="color-filter" data-color="red" style="background-color: #C41E3A;"></button>
+                            <button class="color-filter" data-color="gold" style="background-color: #D4AF37;"></button>
+                            <button class="color-filter" data-color="blue" style="background-color: #1E3A8A;"></button>
+                            <button class="color-filter" data-color="green" style="background-color: #10B981;"></button>
+                            <button class="color-filter" data-color="black" style="background-color: #000000;"></button>
+                            <button class="color-filter" data-color="purple" style="background-color: #7C3AED;"></button>
+                        </div>
+                    </div>
+
+                    <!-- Filtres par Type -->
+                    <div class="filter-group">
+                        <h3>Types de Motifs</h3>
+                        <select id="pattern-type" class="select-filter">
+                            <option value="all">Tous les motifs</option>
+                            <option value="geometrique">Géométrique</option>
+                            <option value="floral">Floral</option>
+                            <option value="animaux">Animaux</option>
+                            <option value="abstrait">Abstrait</option>
+                            <option value="traditionnel">Traditionnel</option>
+                        </select>
+                    </div>
+
+                    <!-- Recherche -->
+                    <div class="filter-group">
+                        <h3>Rechercher</h3>
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Nom du motif, référence...">
+                            <button id="search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Résultats de la Collection -->
+        <section class="collection-results">
+            <div class="container">
+                <div class="results-header">
+                    <h2 id="results-count">24 motifs disponibles</h2>
+                    <div class="sort-options">
+                        <select id="sort-by" class="sort-select">
+                            <option value="newest">Plus récents</option>
+                            <option value="oldest">Plus anciens</option>
+                            <option value="price-asc">Prix croissant</option>
+                            <option value="price-desc">Prix décroissant</option>
+                            <option value="name-asc">A à Z</option>
+                            <option value="name-desc">Z à A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grille de Motifs -->
+                <div class="motifs-grid" id="collection-motifs">
+                    <!-- Les motifs seront chargés via JavaScript -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">...</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Inspiration -->
+        <section class="collection-inspiration">
+            <div class="container">
+                <h2>Inspirations & Créations</h2>
+                <p class="inspiration-subtitle">Découvrez comment nos tissus prennent vie</p>
+                
+                <div class="inspiration-grid">
+                    <div class="inspiration-card">
+                        <img src="assets/images/inspiration-1.jpg" alt="Robe en wax" onerror="this.src='assets/image/wax_image_6.jpg'">
+                        <div class="inspiration-info">
+                            <h3>Robe Élégante</h3>
+                            <p>Motif "Adinkra" - Collection Vlisco</p>
+                        </div>
+                    </div>
+                    <div class="inspiration-card">
+                        <img src="assets/images/inspiration-2.jpg" alt="Accessoires wax" onerror="this.src='assets/image/wax_image_3.jpg'">
+                        <div class="inspiration-info">
+                            <h3>Accessoires</h3>
+                            <p>Sacs et pochettes en wax hollandais</p>
+                        </div>
+                    </div>
+                    <div class="inspiration-card">
+                        <img src="assets/images/inspiration-3.jpg" alt="Décoration intérieure" onerror="this.src='assets/image/wax_image_5.jpg'">
+                        <div class="inspiration-info">
+                            <h3>Décoration</h3>
+                            <p>Coussins et rideaux en tissu wax</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Vlisco Shop</h3>
+                    <p>Spécialiste des tissus wax hollandais et Vlisco authentiques.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="histoire.html">Histoire</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Collections</h4>
+                    <ul>
+                        <li><a href="collection.html?brand=vlisco">Vlisco</a></li>
+                        <li><a href="collection.html?brand=hollandais">Wax Hollandais</a></li>
+                        <li><a href="collection.html?brand=woodin">Woodin</a></li>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> contact@waxcollection.com</li>
+                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Paris, France</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; Vlisco Shop. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/collection.js"></script>
+    <script>
+        // Charger la collection complète
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCollection();
+            
+            // Menu mobile (déjà dans le template, mais au cas où)
+            initMobileMenu();
+        });
+        
+        function initMobileMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMobile = document.querySelector('.nav-mobile');
+            const overlay = document.querySelector('.mobile-overlay');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMobile.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    document.body.style.overflow = navMobile.classList.contains('active') ? 'hidden' : '';
+                });
+                
+                overlay.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    navMobile.classList.remove('active');
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                document.querySelectorAll('.nav-mobile a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menuToggle.classList.remove('active');
+                        navMobile.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>

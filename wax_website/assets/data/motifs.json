@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Motif Adinkra",
+    "brand": "Vlisco",
+    "description": "Un motif emblématique inspiré des symboles Adinkra traditionnels du Ghana.",
+    "story": "Créé en 1972, ce motif s'inspire des symboles Adinkra qui représentent la sagesse et la philosophie Akan. Chaque élément a une signification profonde liée à la communauté et à la tradition.",
+    "image": "images/motifs/adinkra.jpg",
+    "gallery": [
+      "images/motifs/adinkra-1.jpg",
+      "images/motifs/adinkra-2.jpg",
+      "images/motifs/adinkra-3.jpg"
+    ],
+    "colors": ["#000000", "#D4AF37", "#C41E3A", "#1E3A8A"],
+    "composition": "100% coton",
+    "width": 120,
+    "origin": "Helmond, Pays-Bas",
+    "year": 1972,
+    "reference": "VL-1972-001"
+  },
+  {
+    "id": 2,
+    "name": "Fibonacci Gold",
+    "brand": "Vlisco",
+    "description": "Motif géométrique basé sur la suite de Fibonacci, alliant mathématiques et art.",
+    "story": "Édition limitée de 2018, ce motif célèbre l'harmonie mathématique présente dans la nature. La spirale de Fibonacci est un symbole de croissance et de perfection.",
+    "image": "images/motifs/fibonacci.jpg",
+    "gallery": [
+      "images/motifs/fibonacci-1.jpg",
+      "images/motifs/fibonacci-2.jpg"
+    ],
+    "colors": ["#D4AF37", "#1A1A1A", "#FFFFFF", "#F5F1E8"],
+    "composition": "100% coton",
+    "width": 120,
+    "origin": "Helmond, Pays-Bas",
+    "year": 2018,
+    "reference": "VL-2018-015"
+  },
+  {
+    "id": 3,
+    "name": "Fleurs du Sahel",
+    "brand": "Wax Hollandais",
+    "description": "Motif floral inspiré de la végétation résiliente du Sahel africain.",
+    "story": "Créé en collaboration avec des artistes maliens en 2015, ce motif célèbre la beauté et la résilience des fleurs qui poussent dans les conditions arides du Sahel.",
+    "image": "images/motifs/sahel.jpg",
+    "gallery": [
+      "images/motifs/sahel-1.jpg",
+      "images/motifs/sahel-2.jpg"
+    ],
+    "colors": ["#10B981", "#F59E0B", "#FFFFFF", "#1A1A1A"],
+    "composition": "100% coton",
+    "width": 115,
+    "origin": "Amsterdam, Pays-Bas",
+    "year": 2015,
+    "reference": "WH-2015-007"
+  },
+  {
+    "id": 4,
+    "name": "Géométrie Dorée",
+    "brand": "Woodin",
+    "description": "Motif géométrique complexe avec des accents dorés, parfait pour les cérémonies.",
+    "story": "Influencé par l'architecture soudanaise, ce motif combine des formes géométriques traditionnelles avec une touche contemporaine. Idéal pour les grandes occasions.",
+    "image": "images/motifs/geometrie.jpg",
+    "gallery": [
+      "images/motifs/geometrie-1.jpg"
+    ],
+    "colors": ["#D4AF37", "#000000", "#7C3AED", "#FFFFFF"],
+    "composition": "100% coton",
+    "width": 118,
+    "origin": "Accra, Ghana",
+    "year": 2020,
+    "reference": "WO-2020-003"
+  }
+]
