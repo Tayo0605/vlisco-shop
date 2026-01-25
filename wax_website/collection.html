@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collection - Wax Hollandais & Vlisco | Wax Collection</title>
+    <meta name="description" content="Découvrez notre collection exclusive de wax hollandais, Vlisco et tissus premium. Filtrez par marque, couleur, prix et motifs pour trouver le tissu parfait.">
+    <meta property="og:image" content="https://votre-site.com/assets/images/collection-og.jpg">
     
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -15,10 +17,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    
 </head>
+
 <body>
     <!-- HEADER -->
-    <header class="main-header">
+   <header class="main-header">
         <div class="header-container">
             <div class="header-content">
                 <!-- Logo -->
@@ -33,20 +38,12 @@
                         <li><a href="collection.html">Collection</a></li>
                         <li><a href="nouveautes.html">Nouveautés</a></li>
                         <li><a href="tendance.html">Tendances</a></li>
-                        <li><a href="histoire.html">Histoire</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
 
                 <!-- Actions -->
                 <div class="header-actions">
-                    <button class="action-btn search-btn" aria-label="Rechercher">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="action-btn cart-btn" aria-label="Panier">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count">0</span>
-                    </button>
                     <button class="action-btn menu-toggle" aria-label="Menu">
                         <span></span>
                         <span></span>
@@ -63,7 +60,6 @@
                 <li><a href="collection.html"><i class="fas fa-th-large"></i> Collection</a></li>
                 <li><a href="nouveautes.html"><i class="fas fa-star"></i> Nouveautés</a></li>
                 <li><a href="tendance.html"><i class="fas fa-chart-line"></i> Tendances</a></li>
-                <li><a href="histoire.html"><i class="fas fa-book"></i> Histoire</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
         </nav>
@@ -73,6 +69,12 @@
     </header>
 
     <main class="collection-page">
+        <!-- Loading overlay -->
+        <div id="loading-indicator" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Chargement des motifs...</p>
+        </div>
+
         <!-- Hero Section Collection -->
         <section class="page-hero">
             <div class="container">
@@ -81,10 +83,15 @@
             </div>
         </section>
 
+        <!-- Mobile filters toggle -->
+        <button id="mobile-filters-toggle" class="mobile-filters-toggle">
+            <i class="fas fa-filter"></i> Filtres
+        </button>
+
         <!-- Filtres de Collection -->
         <section class="collection-filters">
             <div class="container">
-                <div class="filters-container">
+                <div class="filters-container" id="filters-container">
                     <!-- Filtres par Marque -->
                     <div class="filter-group">
                         <h3>Marques</h3>
@@ -100,12 +107,24 @@
                     <div class="filter-group">
                         <h3>Couleurs</h3>
                         <div class="color-filters">
-                            <button class="color-filter" data-color="red" style="background-color: #C41E3A;"></button>
-                            <button class="color-filter" data-color="gold" style="background-color: #D4AF37;"></button>
-                            <button class="color-filter" data-color="blue" style="background-color: #1E3A8A;"></button>
-                            <button class="color-filter" data-color="green" style="background-color: #10B981;"></button>
-                            <button class="color-filter" data-color="black" style="background-color: #000000;"></button>
-                            <button class="color-filter" data-color="purple" style="background-color: #7C3AED;"></button>
+                            <button class="color-filter" data-color="red" style="background-color: #C41E3A;" aria-label="Filtrer par couleur rouge">
+                                <span class="sr-only">Rouge</span>
+                            </button>
+                            <button class="color-filter" data-color="gold" style="background-color: #D4AF37;" aria-label="Filtrer par couleur or">
+                                <span class="sr-only">Or</span>
+                            </button>
+                            <button class="color-filter" data-color="blue" style="background-color: #1E3A8A;" aria-label="Filtrer par couleur bleue">
+                                <span class="sr-only">Bleu</span>
+                            </button>
+                            <button class="color-filter" data-color="green" style="background-color: #10B981;" aria-label="Filtrer par couleur verte">
+                                <span class="sr-only">Vert</span>
+                            </button>
+                            <button class="color-filter" data-color="black" style="background-color: #000000;" aria-label="Filtrer par couleur noire">
+                                <span class="sr-only">Noir</span>
+                            </button>
+                            <button class="color-filter" data-color="purple" style="background-color: #7C3AED;" aria-label="Filtrer par couleur violette">
+                                <span class="sr-only">Violet</span>
+                            </button>
                         </div>
                     </div>
 
@@ -122,6 +141,21 @@
                         </select>
                     </div>
 
+                    <!-- Filtres par Prix -->
+                    <div class="filter-group">
+                        <h3>Prix en FCFA</h3>
+                        <div class="price-range-container">
+                            <div class="price-range">
+                                <input type="range" id="price-min" class="price-slider" min="0" max="165000" value="0" step="1000">
+                                <input type="range" id="price-max" class="price-slider" min="0" max="165000" value="165000" step="1000">
+                            </div>
+                            <div class="price-range-values">
+                                <span id="min-price-label">0FCFA</span>
+                                <span id="max-price-label">165.000FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Recherche -->
                     <div class="filter-group">
                         <h3>Rechercher</h3>
@@ -130,6 +164,25 @@
                             <button id="search-btn"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
+
+                    <!-- Filter Actions -->
+                    <div class="filter-actions">
+                        <button id="reset-filters" class="reset-btn">Réinitialiser</button>
+                        <button id="apply-filters" class="apply-filters">Appliquer les filtres</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Filters Display -->
+        <section class="active-filters-container" id="active-filters-section" style="display: none;">
+            <div class="container">
+                <div class="active-filters-header">
+                    <h3>Filtres actifs</h3>
+                    <button id="clear-all-filters" class="reset-btn">Tout effacer</button>
+                </div>
+                <div class="active-filters-list" id="active-filters-list">
+                    <!-- Les filtres actifs apparaîtront ici -->
                 </div>
             </div>
         </section>
@@ -139,21 +192,36 @@
             <div class="container">
                 <div class="results-header">
                     <h2 id="results-count">24 motifs disponibles</h2>
-                    <div class="sort-options">
-                        <select id="sort-by" class="sort-select">
-                            <option value="newest">Plus récents</option>
-                            <option value="oldest">Plus anciens</option>
-                            <option value="price-asc">Prix croissant</option>
-                            <option value="price-desc">Prix décroissant</option>
-                            <option value="name-asc">A à Z</option>
-                            <option value="name-desc">Z à A</option>
-                        </select>
+                    <div class="results-controls">
+                        <div class="view-options">
+                            <button class="view-btn active" data-view="grid" aria-label="Vue grille">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list" aria-label="Vue liste">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                        <div class="sort-options">
+                            <select id="sort-by" class="sort-select">
+                                <option value="newest">Plus récents</option>
+                                <option value="oldest">Plus anciens</option>
+                                <option value="price-asc">Prix croissant</option>
+                                <option value="price-desc">Prix décroissant</option>
+                                <option value="name-asc">A à Z</option>
+                                <option value="name-desc">Z à A</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Grille de Motifs -->
+                <!-- Grille de Motifs (Vue par défaut) -->
                 <div class="motifs-grid" id="collection-motifs">
                     <!-- Les motifs seront chargés via JavaScript -->
+                </div>
+
+                <!-- Liste de Motifs (Vue alternative) -->
+                <div class="motifs-list" id="collection-list">
+                    <!-- Les motifs en vue liste apparaîtront ici -->
                 </div>
 
                 <!-- Pagination -->
@@ -169,6 +237,245 @@
             </div>
         </section>
 
+        <!-- COLLECTION COMPLÈTE -->
+        <section class="full-collection">
+            <div class="container">
+                <h2>Tous les Tissus de Notre Collection</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Découvrez l'ensemble de notre collection de wax hollandais, Vlisco et tissus premium. 
+                    Que vous cherchiez un motif géométrique, floral ou traditionnel, vous trouverez ici le tissu parfait pour votre création.
+                </p>
+                
+                <div class="all-fabrics-grid" id="all-fabrics-grid">
+                    <!-- Tissu 1 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/vlisco_3.jpg" alt="Motif Vlisco classique" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Vlisco</div>
+                            <h3 class="fabric-name">Motif Classique Royal</h3>
+                            <div class="fabric-price">25.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #C41E3A;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #1E3A8A;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 2 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/vlisco_2.jpg" alt="Wax hollandais floral" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Hollandais</div>
+                            <h3 class="fabric-name">Wax Floral Printemps</h3>
+                            <div class="fabric-price">18.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #10B981;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 3 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/vlisco_1.jpg" alt="Woodin traditionnel" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Woodin</div>
+                            <h3 class="fabric-name">Motif Traditionnel Africain</h3>
+                            <div class="fabric-price">22.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #000000;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #7C3AED;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 4 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Super Wax.jpg" alt="Vlisco géométrique" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Vlisco</div>
+                            <h3 class="fabric-name">Géométrique Moderne</h3>
+                            <div class="fabric-price">28.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #1E3A8A;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                                <div class="color-dot" style="background-color: #C41E3A;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 5 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition_6.jpg" alt="Wax animaux" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Hollandais</div>
+                            <h3 class="fabric-name">Safari Animal Print</h3>
+                            <div class="fabric-price">20.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #10B981;"></div>
+                                <div class="color-dot" style="background-color: #000000;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 6 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition_5.jpg" alt="Woodin contemporain" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Woodin</div>
+                            <h3 class="fabric-name">Contemporain Élégant</h3>
+                            <div class="fabric-price">19.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #7C3AED;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 7 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/wax_image_1.jpg" alt="Vlisco premium" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Vlisco</div>
+                            <h3 class="fabric-name">Collection Premium Gold</h3>
+                            <div class="fabric-price">35.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #000000;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 8 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition_3.jpg" alt="Wax traditionnel" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Hollandais</div>
+                            <h3 class="fabric-name">Traditionnel Royal</h3>
+                            <div class="fabric-price">23.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #C41E3A;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #1E3A8A;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 9 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition_2.jpg" alt="Woodin moderne" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Woodin</div>
+                            <h3 class="fabric-name">Moderne Abstract</h3>
+                            <div class="fabric-price">21.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #1E3A8A;"></div>
+                                <div class="color-dot" style="background-color: #10B981;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 10 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition.jpg" alt="Vlisco spécial édition" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Vlisco</div>
+                            <h3 class="fabric-name">Édition Limitée 2024</h3>
+                            <div class="fabric-price">40.000FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #7C3AED;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 11 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/Grand Super Limited Edition_7.jpg" alt="Wax quotidien" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Hollandais</div>
+                            <h3 class="fabric-name">Quotidien Élégant</h3>
+                            <div class="fabric-price">16.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #10B981;"></div>
+                                <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+                                <div class="color-dot" style="background-color: #C41E3A;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tissu 12 -->
+                    <div class="fabric-item">
+                        <img src="assets/image/wax_image_4.jpeg" alt="Woodin festif" class="fabric-image" loading="lazy">
+                        <div class="fabric-info">
+                            <div class="fabric-brand">Woodin</div>
+                            <h3 class="fabric-name">Collection Festive</h3>
+                            <div class="fabric-price">24.500FCFA</div>
+                            <div class="fabric-colors">
+                                <div class="color-dot" style="background-color: #C41E3A;"></div>
+                                <div class="color-dot" style="background-color: #D4AF37;"></div>
+                                <div class="color-dot" style="background-color: #1E3A8A;"></div>
+                            </div>
+                            <div class="fabric-actions">
+                                <button class="view-btn-small">Voir détails</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="color: #666; margin-bottom: 20px;">
+                        Notre collection complète compte plus de 150 tissus différents. 
+                        <br>Contactez-nous pour découvrir nos autres modèles non présentés en ligne.
+                    </p>
+                    <a href="contact.html" class="apply-filters" style="display: inline-block; text-decoration: none;">
+                        <i class="fas fa-envelope"></i> Nous contacter
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Section Inspiration -->
         <section class="collection-inspiration">
             <div class="container">
@@ -177,24 +484,33 @@
                 
                 <div class="inspiration-grid">
                     <div class="inspiration-card">
-                        <img src="assets/images/inspiration-1.jpg" alt="Robe en wax" onerror="this.src='assets/image/wax_image_6.jpg'">
+                        <img src="assets/images/modèle_1.jpg" alt="Robe en wax" 
+                             loading="lazy" 
+                             onerror="this.src='assets/image/modèle_1.jpg'"
+                             class="clickable-image"
+                             data-caption="Robe Élégante - Création en wax hollandais">
                         <div class="inspiration-info">
                             <h3>Robe Élégante</h3>
-                            <p>Motif "Adinkra" - Collection Vlisco</p>
                         </div>
                     </div>
                     <div class="inspiration-card">
-                        <img src="assets/images/inspiration-2.jpg" alt="Accessoires wax" onerror="this.src='assets/image/wax_image_3.jpg'">
+                        <img src="assets/images/modele_3.jpg" alt="Robe élégante" 
+                             loading="lazy" 
+                             onerror="this.src='assets/image/modele_3.jpg'"
+                             class="clickable-image"
+                             data-caption="Robe Élégante - Collection spéciale wax">
                         <div class="inspiration-info">
-                            <h3>Accessoires</h3>
-                            <p>Sacs et pochettes en wax hollandais</p>
+                            <h3>Robe Élégante</h3>
                         </div>
                     </div>
                     <div class="inspiration-card">
-                        <img src="assets/images/inspiration-3.jpg" alt="Décoration intérieure" onerror="this.src='assets/image/wax_image_5.jpg'">
+                        <img src="assets/images/modele_5.jpg" alt="Robe tout événement" 
+                             loading="lazy" 
+                             onerror="this.src='assets/image/modele_5.jpg'"
+                             class="clickable-image"
+                             data-caption="Robe Tout Événement - Wax premium">
                         <div class="inspiration-info">
-                            <h3>Décoration</h3>
-                            <p>Coussins et rideaux en tissu wax</p>
+                            <h3>Robe Tout Événement</h3>
                         </div>
                     </div>
                 </div>
@@ -212,7 +528,7 @@
                     <div class="social-links">
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" aria-label="Tiktok"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 
@@ -221,7 +537,6 @@
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="collection.html">Collection</a></li>
-                        <li><a href="histoire.html">Histoire</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -239,9 +554,9 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul class="contact-info">
-                        <li><i class="fas fa-envelope"></i> contact@waxcollection.com</li>
-                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Paris, France</li>
+                        <li><i class="fas fa-envelope"></i> hounkponoumarwan@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +229 01 90 91 95 94</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Cotonou, Benin</li>
                     </ul>
                 </div>
             </div>
@@ -252,48 +567,20 @@
         </div>
     </footer>
 
+     <!-- Modal pour les images en taille réelle -->
+    <div id="image-modal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modal-image" alt="Image agrandie">
+        <div class="modal-caption" id="modal-caption"></div>
+        
+        <!-- Navigation entre images -->
+        <a class="modal-prev" id="modal-prev" aria-label="Image précédente">&#10094;</a>
+        <a class="modal-next" id="modal-next" aria-label="Image suivante">&#10095;</a>
+    </div>
+
     <!-- JavaScript -->
     <script src="assets/js/script.js"></script>
     <script src="assets/js/collection.js"></script>
-    <script>
-        // Charger la collection complète
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCollection();
-            
-            // Menu mobile (déjà dans le template, mais au cas où)
-            initMobileMenu();
-        });
-        
-        function initMobileMenu() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMobile = document.querySelector('.nav-mobile');
-            const overlay = document.querySelector('.mobile-overlay');
-            
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    navMobile.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                    document.body.style.overflow = navMobile.classList.contains('active') ? 'hidden' : '';
-                });
-                
-                overlay.addEventListener('click', function() {
-                    menuToggle.classList.remove('active');
-                    navMobile.classList.remove('active');
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-                
-                document.querySelectorAll('.nav-mobile a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        menuToggle.classList.remove('active');
-                        navMobile.classList.remove('active');
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
-            }
-        }
-    </script>
+   
 </body>
 </html>
