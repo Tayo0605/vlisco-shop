@@ -32,6 +32,75 @@
     --space-xl: 8rem;
 }
 
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Animation classes */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.8s ease forwards;
+}
+
+/* Staggered animations */
+.hero-content > * {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-content h1 {
+    animation-delay: 0.2s;
+}
+
+.hero-content .subtitle {
+    animation-delay: 0.4s;
+}
+
+.hero-content .hero-buttons {
+    animation-delay: 0.6s;
+}
+
+.hero-image {
+    opacity: 0;
+    animation: slideInLeft 1s ease 0.3s forwards;
+}
+
 /* ===== BASE STYLES ===== */
 body {
     font-family: var(--font-body);
@@ -63,31 +132,153 @@ h3 { font-size: 1.75rem; }
     gap: var(--space-lg);
     align-items: center;
     padding: var(--space-xl) var(--space-md);
-    background: linear-gradient(135deg, var(--color-beige) 0%, #FFFFFF 100%);
+    background: 
+        linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 255, 255, 1) 50%, rgba(196, 30, 58, 0.05) 100%);
     min-height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative pattern overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .hero-content {
     padding-right: var(--space-md);
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
     margin-bottom: var(--space-sm);
     color: var(--color-black);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    position: relative;
+}
+
+/* Elegant underline decoration */
+.hero h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-red));
+    margin: 1rem 0;
+    border-radius: 2px;
 }
 
 .subtitle {
-    font-size: 1.25rem;
-    color: #666;
+    font-size: 1.35rem;
+    color: #555;
     margin-bottom: var(--space-md);
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-image img {
     width: 100%;
-    height: 500px;
+    height: 550px;
     object-fit: cover;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(212, 175, 55, 0.2);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.hero-image img:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 35px 60px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(212, 175, 55, 0.3);
+}
+
+/* ===== PAGE HERO (Collection Page) ===== */
+.page-hero {
+    padding: 6rem 2rem;
+    background: 
+        linear-gradient(135deg, #1A1A1A 0%, #2d2d2d 50%, #1A1A1A 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative golden accents */
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), var(--color-red), var(--color-gold), transparent);
+}
+
+/* Pattern overlay */
+.page-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-hero h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.page-hero h1::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--color-gold);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.6s forwards;
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.4s forwards;
 }
 
 /* ===== BOUTONS ===== */
@@ -303,14 +494,32 @@ section {
         grid-template-columns: 1fr;
         text-align: center;
         gap: var(--space-md);
+        padding: 4rem 2rem;
+        min-height: auto;
     }
     
     .hero-content {
         padding-right: 0;
     }
     
+    .hero h1::after {
+        margin: 1rem auto;
+    }
+    
+    .hero-image img {
+        height: 400px;
+    }
+    
     .story-teaser {
         grid-template-columns: 1fr;
+    }
+    
+    .page-hero {
+        padding: 4rem 1.5rem;
+    }
+    
+    .page-hero h1 {
+        font-size: 2.5rem;
     }
     
     h1 { font-size: 2.5rem; }
@@ -335,6 +544,23 @@ section {
     .btn-secondary {
         margin-left: 0;
     }
+    
+    .hero-image img {
+        height: 300px;
+        border-radius: 15px;
+    }
+    
+    .page-hero {
+        padding: 3rem 1rem;
+    }
+    
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .page-hero p {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -346,5 +572,13 @@ section {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--space-sm);
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .page-hero h1 {
+        font-size: 1.75rem;
     }
 }

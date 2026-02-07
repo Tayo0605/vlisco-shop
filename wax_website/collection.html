@@ -36,8 +36,8 @@
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="collection.html">Collection</a></li>
-                        <li><a href="nouveautes.html">Nouveautés</a></li>
-                        <li><a href="tendance.html">Tendances</a></li>
+                        <!-- <li><a href="nouveautes.html">Nouveautés</a></li>
+                        <li><a href="tendance.html">Tendances</a></li> -->
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
@@ -73,6 +73,56 @@
         <div id="loading-indicator" class="loading-overlay">
             <div class="spinner"></div>
             <p>Chargement des motifs...</p>
+        </div>
+
+        <!-- Modal pour afficher les détails du tissu -->
+        <div id="fabric-modal" class="fabric-modal">
+            <div class="fabric-modal-content">
+                <button class="fabric-modal-close">&times;</button>
+                <div class="fabric-modal-body">
+                    <div class="fabric-modal-image">
+                        <img id="modal-fabric-image" src="" alt="">
+                        <div class="fabric-gallery" id="modal-fabric-gallery"></div>
+                    </div>
+                    <div class="fabric-modal-details">
+                        <span class="fabric-modal-brand" id="modal-fabric-brand"></span>
+                        <h2 id="modal-fabric-name"></h2>
+                        <p class="fabric-modal-reference" id="modal-fabric-reference"></p>
+                        <p class="fabric-modal-description" id="modal-fabric-description"></p>
+                        <p class="fabric-modal-story" id="modal-fabric-story"></p>
+                        <div class="fabric-modal-colors">
+                            <span>Couleurs:</span>
+                            <div id="modal-fabric-colors"></div>
+                        </div>
+                        <div class="fabric-modal-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">Composition:</span>
+                                <span id="modal-fabric-composition"></span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Largeur:</span>
+                                <span id="modal-fabric-width"></span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Origine:</span>
+                                <span id="modal-fabric-origin"></span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Année:</span>
+                                <span id="modal-fabric-year"></span>
+                            </div>
+                        </div>
+                        <div class="fabric-modal-price">
+                            <span id="modal-fabric-price"></span>
+                        </div>
+                        <div class="fabric-modal-actions">
+                            <button class="add-to-cart-btn" id="modal-add-to-cart">
+                                <i class="fas fa-shopping-bag"></i> Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Hero Section Collection -->
@@ -260,7 +310,7 @@
                                 <div class="color-dot" style="background-color: #1E3A8A;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="1">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -278,7 +328,7 @@
                                 <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="2">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -296,7 +346,7 @@
                                 <div class="color-dot" style="background-color: #7C3AED;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="3">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -314,7 +364,7 @@
                                 <div class="color-dot" style="background-color: #C41E3A;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="4">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -332,7 +382,7 @@
                                 <div class="color-dot" style="background-color: #D4AF37;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="5">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -350,7 +400,7 @@
                                 <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="6">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -368,7 +418,7 @@
                                 <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="7">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -386,7 +436,7 @@
                                 <div class="color-dot" style="background-color: #1E3A8A;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="8">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -404,7 +454,7 @@
                                 <div class="color-dot" style="background-color: #D4AF37;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="9">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -422,7 +472,7 @@
                                 <div class="color-dot" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="10">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -440,7 +490,7 @@
                                 <div class="color-dot" style="background-color: #C41E3A;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="11">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -458,7 +508,7 @@
                                 <div class="color-dot" style="background-color: #1E3A8A;"></div>
                             </div>
                             <div class="fabric-actions">
-                                <button class="view-btn-small">Voir détails</button>
+                                <button class="view-details-btn" data-id="12">Voir détails</button>
                             </div>
                         </div>
                     </div>
@@ -484,9 +534,8 @@
                 
                 <div class="inspiration-grid">
                     <div class="inspiration-card">
-                        <img src="assets/images/modèle_1.jpg" alt="Robe en wax" 
+                        <img src="assets/image/modèle_1.jpg" alt="Robe en wax" 
                              loading="lazy" 
-                             onerror="this.src='assets/image/modèle_1.jpg'"
                              class="clickable-image"
                              data-caption="Robe Élégante - Création en wax hollandais">
                         <div class="inspiration-info">
@@ -494,9 +543,8 @@
                         </div>
                     </div>
                     <div class="inspiration-card">
-                        <img src="assets/images/modele_3.jpg" alt="Robe élégante" 
+                        <img src="assets/image/modele_3.jpg" alt="Robe élégante" 
                              loading="lazy" 
-                             onerror="this.src='assets/image/modele_3.jpg'"
                              class="clickable-image"
                              data-caption="Robe Élégante - Collection spéciale wax">
                         <div class="inspiration-info">
@@ -504,9 +552,8 @@
                         </div>
                     </div>
                     <div class="inspiration-card">
-                        <img src="assets/images/modele_5.jpg" alt="Robe tout événement" 
+                        <img src="assets/image/modele_5.jpg" alt="Robe tout événement" 
                              loading="lazy" 
-                             onerror="this.src='assets/image/modele_5.jpg'"
                              class="clickable-image"
                              data-caption="Robe Tout Événement - Wax premium">
                         <div class="inspiration-info">

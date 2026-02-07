@@ -837,6 +837,153 @@ function initImageModal() {
     };
 }
 
+// Fonction pour initialiser le modal des détails du tissu
+function initFabricModal() {
+    const modal = document.getElementById('fabric-modal');
+    if (!modal) return;
+    
+    const closeBtn = modal.querySelector('.fabric-modal-close');
+    
+    // Fermer le modal
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Événements de fermeture
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Navigation au clavier
+    document.addEventListener('keydown', function(e) {
+        if (modal.style.display === 'block' && e.key === 'Escape') {
+            closeModal();
+        }
+    });
+    
+    return {
+        closeModal: closeModal
+    };
+}
+
+// Fonction pour obtenir les détails d'un tissu par ID
+function getFabricById(id) {
+    // Chercher d'abord dans allMotifs
+    const motif = allMotifs.find(m => m.id === parseInt(id));
+    if (motif) {
+        return {
+            ...motif,
+            price: motif.price || 25000,
+            colors: motif.colors || ['#C41E3A', '#D4AF37', '#1E3A8A']
+        };
+    }
+    
+    // Données par défaut pour les tissus non trouvés dans motifs.json
+    const defaultFabrics = {
+        1: { id: 1, name: 'Motif Classique Royal', brand: 'Vlisco', description: 'Un classique intemporel de la collection Vlisco avec des motifs traditionnels.', story: 'Créé par les meilleurs artisans de Vlisco, ce motif représente l\'élégance et la tradition africaine.', composition: '100% coton', width: '120 cm', origin: 'Helmond, Pays-Bas', year: 1972, reference: 'VL-1972-001', price: 25000, colors: ['#C41E3A', '#D4AF37', '#1E3A8A'] },
+        2: { id: 2, name: 'Wax Floral Printemps', brand: 'Wax Hollandais', description: 'Motif floral printanier vibrant en wax holonnais.', story: 'Inspiré par les fleurs цветущие du Sahel, ce motif célèbre la beauté de la nature africaine.', composition: '100% coton', width: '115 cm', origin: 'Amsterdam, Pays-Bas', year: 2015, reference: 'WH-2015-002', price: 18500, colors: ['#10B981', '#D4AF37', '#FFFFFF'] },
+        3: { id: 3, name: 'Motif Traditionnel Africain', brand: 'Woodin', description: 'Inspiration africaine traditionnelle avec des symboles ancestraux.', story: 'Ce motif rend hommage aux traditions africaines avec des symboles qui racontent des histoires de sagesse et de philosophie.', composition: '100% coton', width: '118 cm', origin: 'Accra, Ghana', year: 2020, reference: 'WD-2020-003', price: 22000, colors: ['#000000', '#D4AF37', '#7C3AED'] },
+        4: { id: 4, name: 'Géométrique Moderne', brand: 'Vlisco', description: 'Motif géométrique moderne et élégant pour les occasions spéciales.', story: 'Une interprétation contemporaine des formes géométriques traditionnelles, parfaite pour les femmes modernes.', composition: '100% coton', width: '120 cm', origin: 'Helmond, Pays-Bas', year: 2018, reference: 'VL-2018-004', price: 28500, colors: ['#1E3A8A', '#FFFFFF', '#C41E3A'] },
+        5: { id: 5, name: 'Safari Animal Print', brand: 'Wax Hollandais', description: 'Inspiration safari avec des motifs animals majestueux.', story: 'Créé pour célébrer la faune africaine, ce motif est parfait pour les esprits libres et aventureux.', composition: '100% coton', width: '115 cm', origin: 'Amsterdam, Pays-Bas', year: 2019, reference: 'WH-2019-005', price: 20000, colors: ['#10B981', '#000000', '#D4AF37'] },
+        6: { id: 6, name: 'Contemporain Élégant', brand: 'Woodin', description: 'Design contemporain et abstrait pour un style unique.', story: 'Une fusion moderne de l\'art africain contemporain avec des influences occidentales.', composition: '100% coton', width: '118 cm', origin: 'Accra, Ghana', year: 2021, reference: 'WD-2021-006', price: 19500, colors: ['#7C3AED', '#D4AF37', '#FFFFFF'] },
+        7: { id: 7, name: 'Collection Premium Gold', brand: 'Vlisco', description: 'Collection premium avec des finitions or exquis.', story: 'L\'ultime expression du luxe africain, avec des fils d\'or tissés avec expertise.', composition: '100% coton premium', width: '120 cm', origin: 'Helmond, Pays-Bas', year: 2023, reference: 'VL-2023-007', price: 35000, colors: ['#D4AF37', '#000000', '#FFFFFF'] },
+        8: { id: 8, name: 'Traditionnel Royal', brand: 'Wax Hollandais', description: 'Motif traditionnel royal holonnais pour les grandes occasions.', story: 'Un hommage aux rois et reines africains, ce motif évoque la majesté et la dignité.', composition: '100% coton', width: '115 cm', origin: 'Amsterdam, Pays-Bas', year: 2017, reference: 'WH-2017-008', price: 23500, colors: ['#C41E3A', '#D4AF37', '#1E3A8A'] },
+        9: { id: 9, name: 'Moderne Abstract', brand: 'Woodin', description: 'Design moderne et abstrait avec des formes audacieuses.', story: 'Une interprétation abstraite de l\'art africain moderne, pour ceux qui osent être différents.', composition: '100% coton', width: '118 cm', origin: 'Accra, Ghana', year: 2022, reference: 'WD-2022-009', price: 21000, colors: ['#1E3A8A', '#10B981', '#D4AF37'] },
+        10: { id: 10, name: 'Édition Limitée 2024', brand: 'Vlisco', description: 'Édition limitée spéciale 2024 avec des motifs exclusifs.', story: 'Célébration de l\'année 2024 avec un motif exclusif qui capture l\'essence de notre époque.', composition: '100% coton premium', width: '120 cm', origin: 'Helmond, Pays-Bas', year: 2024, reference: 'VL-2024-010', price: 40000, colors: ['#7C3AED', '#D4AF37', '#FFFFFF'] },
+        11: { id: 11, name: 'Quotidien Élégant', brand: 'Wax Hollandais', description: 'Parfait pour un usage quotidien avec style.', story: 'Un tissu confortable et élégant pour accompagner vos moments de tous les jours.', composition: '100% coton', width: '115 cm', origin: 'Amsterdam, Pays-Bas', year: 2023, reference: 'WH-2023-011', price: 16500, colors: ['#10B981', '#FFFFFF', '#C41E3A'] },
+        12: { id: 12, name: 'Collection Festive', brand: 'Woodin', description: 'Collection spéciale pour les fêtes et célébrations.', story: 'Des motifs joyeux et vibrants conçus pour illuminer vos moments de célébration.', composition: '100% coton', width: '118 cm', origin: 'Accra, Ghana', year: 2023, reference: 'WD-2023-012', price: 24500, colors: ['#C41E3A', '#D4AF37', '#1E3A8A'] }
+    };
+    
+    return defaultFabrics[id] || null;
+}
+
+// Fonction pour ouvrir le modal avec les détails du tissu
+function openFabricModal(fabricId) {
+    const modal = document.getElementById('fabric-modal');
+    if (!modal) return;
+    
+    const fabric = getFabricById(fabricId);
+    if (!fabric) {
+        console.error('Tissu non trouvé:', fabricId);
+        return;
+    }
+    
+    // Remplir les informations du modal
+    document.getElementById('modal-fabric-image').src = fabric.image || getFabricImage(fabricId);
+    document.getElementById('modal-fabric-image').alt = fabric.name;
+    document.getElementById('modal-fabric-brand').textContent = fabric.brand;
+    document.getElementById('modal-fabric-name').textContent = fabric.name;
+    document.getElementById('modal-fabric-reference').textContent = `Référence: ${fabric.reference || 'N/A'}`;
+    document.getElementById('modal-fabric-description').textContent = fabric.description || '';
+    document.getElementById('modal-fabric-story').textContent = fabric.story || '';
+    document.getElementById('modal-fabric-composition').textContent = fabric.composition || '100% coton';
+    document.getElementById('modal-fabric-width').textContent = fabric.width || '120 cm';
+    document.getElementById('modal-fabric-origin').textContent = fabric.origin || 'Helmond, Pays-Bas';
+    document.getElementById('modal-fabric-year').textContent = fabric.year || '2024';
+    document.getElementById('modal-fabric-price').textContent = `${fabric.price.toLocaleString('fr-FR')}FCFA`;
+    
+    // Couleurs
+    const colorsContainer = document.getElementById('modal-fabric-colors');
+    colorsContainer.innerHTML = '';
+    if (fabric.colors && Array.isArray(fabric.colors)) {
+        fabric.colors.forEach(color => {
+            const colorDot = document.createElement('div');
+            colorDot.className = 'color-dot';
+            colorDot.style.backgroundColor = color;
+            if (color === '#FFFFFF') {
+                colorDot.style.border = '1px solid #ccc';
+            }
+            colorsContainer.appendChild(colorDot);
+        });
+    }
+    
+    // Gallery
+    const galleryContainer = document.getElementById('modal-fabric-gallery');
+    galleryContainer.innerHTML = '';
+    if (fabric.gallery && Array.isArray(fabric.gallery)) {
+        fabric.gallery.forEach((img, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = img;
+            thumb.alt = `${fabric.name} - Image ${index + 1}`;
+            thumb.className = 'gallery-thumb';
+            thumb.addEventListener('click', () => {
+                document.getElementById('modal-fabric-image').src = img;
+            });
+            galleryContainer.appendChild(thumb);
+        });
+    }
+    
+    // Afficher le modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Fonction pour obtenir l'image du tissu par ID
+function getFabricImage(id) {
+    const images = {
+        1: 'assets/image/vlisco_3.jpg',
+        2: 'assets/image/vlisco_2.jpg',
+        3: 'assets/image/vlisco_1.jpg',
+        4: 'assets/image/Super Wax.jpg',
+        5: 'assets/image/Grand Super Limited Edition_6.jpg',
+        6: 'assets/image/Grand Super Limited Edition_5.jpg',
+        7: 'assets/image/wax_image_1.jpg',
+        8: 'assets/image/Grand Super Limited Edition_3.jpg',
+        9: 'assets/image/Grand Super Limited Edition_2.jpg',
+        10: 'assets/image/Grand Super Limited Edition.jpg',
+        11: 'assets/image/Grand Super Limited Edition_7.jpg',
+        12: 'assets/image/wax_image_4.jpeg'
+    };
+    return images[id] || 'assets/image/vlisco_1.jpg';
+}
+
 // Fonction pour le menu mobile
 function initMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -880,6 +1027,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialiser le modal pour les images
     const imageModal = initImageModal();
     
+    // Initialiser le modal des détails du tissu
+    initFabricModal();
+    
     // Charger la collection initiale
     loadCollection();
     
@@ -904,11 +1054,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ici vous ajouteriez la logique pour la vue rapide
         }
         
-        if (e.target.closest('.view-btn-small')) {
-            const btn = e.target.closest('.view-btn-small');
+        // Gérer les boutons "Voir détails" du modal
+        if (e.target.closest('.view-details-btn')) {
+            const btn = e.target.closest('.view-details-btn');
             const id = btn.dataset.id;
-            alert(`Détails du produit ${id}!`);
-            // Ici vous ajouteriez la logique pour afficher les détails
+            openFabricModal(id);
+        }
+        
+        // Gérer le bouton "Ajouter au panier" dans le modal
+        if (e.target.closest('#modal-add-to-cart')) {
+            const btn = e.target.closest('#modal-add-to-cart');
+            const fabricName = document.getElementById('modal-fabric-name').textContent;
+            alert(`${fabricName} ajouté au panier!`);
         }
     });
 });

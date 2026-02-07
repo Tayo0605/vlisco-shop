@@ -841,4 +841,296 @@
         .no-results p {
             color: #999;
         }
+        
+        /* ===== MODAL DÉTAILS TISSU ===== */
+        .fabric-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fabricModalFadeIn 0.3s;
+        }
+        
+        @keyframes fabricModalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fabric-modal-content {
+            background-color: white;
+            margin: 5vh auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .fabric-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #333;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            border: none;
+        }
+        
+        .fabric-modal-close:hover {
+            color: #D4AF37;
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .fabric-modal-body {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .fabric-modal-image {
+            flex: 1;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        .fabric-modal-image img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .fabric-gallery {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .gallery-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gallery-thumb:hover {
+            transform: scale(1.1);
+            border-color: #D4AF37;
+        }
+        
+        .fabric-modal-details {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+        
+        .fabric-modal-brand {
+            display: inline-block;
+            background: #D4AF37;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .fabric-modal-details h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .fabric-modal-reference {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .fabric-modal-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .fabric-modal-story {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .fabric-modal-colors {
+            margin-bottom: 20px;
+        }
+        
+        .fabric-modal-colors span {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .fabric-modal-colors #modal-fabric-colors {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .fabric-modal-colors .color-dot {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid #eee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fabric-modal-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .spec-label {
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+        
+        .spec-item span:last-child {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .fabric-modal-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+        
+        .fabric-modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .add-to-cart-btn {
+            background: #D4AF37;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: #c19b2e;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive modal */
+        @media (max-width: 768px) {
+            .fabric-modal-body {
+                flex-direction: column;
+            }
+            
+            .fabric-modal-image {
+                padding: 15px;
+            }
+            
+            .fabric-modal-image img {
+                max-height: 300px;
+            }
+            
+            .fabric-modal-details {
+                padding: 20px;
+                max-height: none;
+            }
+            
+            .fabric-modal-details h2 {
+                font-size: 1.5rem;
+            }
+            
+            .fabric-modal-specs {
+                grid-template-columns: 1fr;
+            }
+            
+            .fabric-modal-price {
+                font-size: 1.5rem;
+            }
+            
+            .fabric-modal-actions {
+                flex-direction: column;
+            }
+        }
+        
+        /* Style pour le bouton "Voir détails" dans la grille */
+        .view-details-btn {
+            background: #D4AF37;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .view-details-btn:hover {
+            background: #c19b2e;
+            transform: translateY(-2px);
+        }
+        
+        /* Mettre à jour fabric-actions pour utiliser le nouveau style */
+        .fabric-actions {
+            display: flex;
+            gap: 10px;
+        }
     
